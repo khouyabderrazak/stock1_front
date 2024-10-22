@@ -1,0 +1,20 @@
+<button class="btn" style="position: absolute;top:0;right:10px;color: dodgerblue;" data-bs-toggle="modal"
+  data-bs-target="#myModal">
+  <ng-content class=".icon"></ng-content>
+</button>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <ng-content select=".modal-title"></ng-content>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <!-- Modal body -->
+      
+        <ng-content select=".modal-body"></ng-content>
+   
+    </div>
+  </div>
+</div>

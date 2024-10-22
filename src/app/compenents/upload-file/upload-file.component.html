@@ -1,0 +1,35 @@
+<div class="image-container p-2">
+    <div *ngIf="img===null;else afiche;">
+        <div class="text-center">
+            <i class="pi pi-file-import mt-2" style="font-size: 6rem;color: dodgerblue;"></i>
+        </div>
+        <p class="text-center mt-2">Glissez et déposez votre fichier ici</p>
+        <p class="my-3 text-center">or</p>
+        <div class="d-flex justify-content-center">
+            <p class="text-center text-white p-2 rounded" style="background-color: dodgerblue;"><i
+                    class="pi pi-file"></i>
+                click pour choisir une fechier</p>
+        </div>
+    </div>
+
+    <input class="file" type="file" #file placeholder="Choose file" [multiple]="true"
+        (change)="uploadFile(file.files,file)">
+
+    <ng-template #afiche>
+        
+        <div style="height:250px;width: auto;">
+            <div>
+                <p-image [src]="src" [preview]="true" alt="Image" width="auto" height="200px" width="250px">
+                </p-image>
+            </div>
+            <div class="bg-white d-flex justify-content-between" style="width:100% !important;">
+                <p-button [text]="true" title="delete" [rounded]="true" severity="danger" (click)="delete(file)">
+                    <i class="pi pi-trash text-danger"></i>
+                </p-button>
+                <p-button [text]="true" title="update" [rounded]="true" severity="success" (click)="file.click()">
+                    <i class="pi pi-file-edit text-success"></i>
+                </p-button>
+            </div>
+        </div>
+    </ng-template>
+</div>

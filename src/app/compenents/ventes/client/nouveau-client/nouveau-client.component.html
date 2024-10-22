@@ -1,0 +1,408 @@
+<form [formGroup]="monFormulaire" (ngSubmit)="Enregistrer()">
+    
+    <p-toast></p-toast>
+    <p-card>
+ 
+        <div class="row my-2">
+            <div class="col-md-4">
+                <p>Type de client</p>
+            </div>
+
+            <div class="col-md-8">
+                <div class="d-flex">
+                    <div class="flex align-items-center">
+                        <p-radioButton name="type" value="0" formControlName="type"
+                            inputId="Entreprise"></p-radioButton>
+                        <label for="Entreprise" class="ml-2">Entreprise</label>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="flex align-items-center">
+                        <p-radioButton name="type" value="1" formControlName="type"
+                            inputId="Individuel"></p-radioButton>
+                        <label for="Individuel" class="ml-2">Individuel</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row my-2">
+            <div class="col-md-4">
+                <p>Contact principal</p>
+            </div>
+            <div class="col-md-8">
+                <div class="d-flex">
+                    <p-dropdown formControlName="title" [options]="Titres" optionLabel="label" optionValue="id"
+                        [showClear]="true" placeholder="Titre" [style]="{'width':'100%'}" [class.invalid-input]="!monFormulaire.get('title').valid && monFormulaire.get('title') && submit==true"></p-dropdown>
+                    &nbsp;
+                    &nbsp;<input type="text" formControlName="firstName" pInputText [style]="{'width':'100%'}"
+                        placeholder="Prénom" [class.invalid-input]="!monFormulaire.get('firstName').valid && monFormulaire.get('firstName') && submit==true"/>
+                    &nbsp;<input type="text" formControlName="lastName" pInputText [style]="{'width':'100%'}"
+                        placeholder="Nom de famille" [class.invalid-input]="!monFormulaire.get('lastName').valid && monFormulaire.get('lastName') && submit==true"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-2">
+            <div class="col-md-4">
+                <p>Nom de la société</p>
+            </div>
+            <div class="col-md-4">
+                <input type="text" formControlName="companyName" pInputText [style]="{'width':'100%'}"
+                    placeholder="Nom de la société" [class.invalid-input]="!monFormulaire.get('companyName').valid && monFormulaire.get('companyName') && submit==true"/>
+            </div>
+        </div>
+
+        <div class="row my-2">
+            <div class="col-md-4">
+                <p class="text-danger">Nom d'affichage du client*</p>
+            </div>
+            <div class="col-md-4">
+                <input type="text" formControlName="displayName" pInputText [style]="{'width':'100%'}"
+                    placeholder="Nom d'affichage du client" [class.invalid-input]="!monFormulaire.get('displayName').valid && monFormulaire.get('displayName') && submit==true"/>
+            </div>
+        </div>
+
+        <div class="row my-2">
+            <div class="col-md-4">
+                <p>E-mail du client</p>
+            </div>
+            <div class="col-md-4">
+                <p-iconField iconPosition="left">
+                    <p-inputIcon styleClass="pi pi-envelope"></p-inputIcon>
+                    <input formControlName="email" type="email" pInputText
+                        [class.invalid-input]="!monFormulaire.get('email').valid && monFormulaire.get('email') && submit==true" />
+                </p-iconField>
+            </div>
+        </div>
+
+        <div class="row my-2">
+            <div class="col-md-4">
+                <p>Téléphone du client</p>
+            </div>
+            <div class="col-md-8">
+                <div class="d-flex">
+                    <p-iconField iconPosition="left">
+                        <p-inputIcon styleClass="pi pi-phone"></p-inputIcon>
+                        <input formControlName="phonePro" type="text" pInputText
+                            placeholder="Téléphone professionnel" [class.invalid-input]="!monFormulaire.get('phonePro').valid && monFormulaire.get('phonePro') && submit==true" />
+                    </p-iconField>
+                    &nbsp;&nbsp;&nbsp;
+                    <p-iconField iconPosition="left">
+                        <p-inputIcon styleClass="pi pi-phone"></p-inputIcon>
+                        <input formControlName="phonePortable" type="text" pInputText
+                            placeholder="Téléphone portable" [class.invalid-input]="!monFormulaire.get('phonePortable').valid && monFormulaire.get('phonePortable') && submit==true" />
+                    </p-iconField>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <p-tabView>
+
+                <p-tabPanel header="Autres détails">
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p>Devise</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <p-dropdown formControlName="currencyId"
+                                    styleClass="payment-cdt-dropdown height-width-global w-100" [options]="devises"
+                                    [showClear]="true" optionLabel="label" optionValue="id"
+                                    placeholder="Devise" [class.invalid-input]="!monFormulaire.get('currencyId').valid && monFormulaire.get('currencyId') && submit==true"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            <p>Taxe</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p-dropdown formControlName="taxId" [options]="taxes" optionLabel="title" [filter]="true"
+                                filterBy="title" [showClear]="true" optionValue="id"
+                                placeholder="Sélectionner une taxe" [class.invalid-input]="!monFormulaire.get('taxId').valid && monFormulaire.get('taxId') && submit==true"></p-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p>Conditions de paiement</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <p-dropdown formControlName="paymentConditionId"
+                                    styleClass="payment-cdt-dropdown height-width-global w-100" [options]="conditions"
+                                    [showClear]="true" optionLabel="label" optionValue="id"
+                                    placeholder="Conditions de paiement" [class.invalid-input]="!monFormulaire.get('paymentConditionId').valid && monFormulaire.get('paymentConditionId') && submit==true"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+
+
+                <p-tabPanel header="Adresse">
+                    <div class="row">
+
+                        <div class="col-md-6"  formGroupName="billingAddress">
+                            <h6 class="text-center">Adresse de facturation</h6>
+                            <p-divider></p-divider>
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Pays / Région</p> 
+                                </div>
+                                <div class="col-md-4">
+                                    <input formControlName="country" type="text" pInputText
+                                        placeholder="Pays / Région" [class.invalid-input]="!monFormulaire.get('billingAddress.country')?.valid && monFormulaire.get('billingAddress.country') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Adresse</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="addressLine1" pInputText
+                                        placeholder="rue 1" [class.invalid-input]="!monFormulaire.get('billingAddress.addressLine1')?.valid && monFormulaire.get('billingAddress.addressLine1') && submit==true" />
+
+                                    <input formControlName="addressLine2"
+                                        [ngStyle]="{'margin-top':'4px'}" type="text" pInputText placeholder="rue 2" [class.invalid-input]="!monFormulaire.get('billingAddress.addressLine2')?.valid && monFormulaire.get('billingAddress.addressLine2') && submit==true" />
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Ville</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="city" pInputText
+                                        placeholder="Ville" [class.invalid-input]="!monFormulaire.get('billingAddress.city')?.valid && monFormulaire.get('billingAddress.city') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>État</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="state" pInputText
+                                        placeholder="État" [class.invalid-input]="!monFormulaire.get('billingAddress.state')?.valid && monFormulaire.get('billingAddress.state') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Code postal</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="postalCode" pInputText
+                                        placeholder="Code postal" [class.invalid-input]="!monFormulaire.get('billingAddress.postalCode')?.valid && monFormulaire.get('billingAddress.postalCode') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Téléphone</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="phoneNumber" pInputText
+                                        placeholder="Téléphone" [class.invalid-input]="!monFormulaire.get('billingAddress.phoneNumber')?.valid && monFormulaire.get('billingAddress.phoneNumber') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Numéro de télécopie</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="fax" pInputText
+                                        placeholder="Numéro de télécopie" [class.invalid-input]="!monFormulaire.get('billingAddress.fax')?.valid && monFormulaire.get('billingAddress.fax') && submit==true"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6" formGroupName="deliveryAddress">
+                            <h6 class="text-center">Adresse de livraison</h6>
+                            <p-divider></p-divider>
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Pays / Région</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input formControlName="country" type="text" pInputText
+                                        placeholder="Pays / Région" [class.invalid-input]="!monFormulaire.get('deliveryAddress.country').valid && monFormulaire.get('deliveryAddress.country') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Adresse</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="addressLine1" pInputText
+                                        placeholder="rue 1" [class.invalid-input]="!monFormulaire.get('deliveryAddress.addressLine1').valid && monFormulaire.get('deliveryAddress.addressLine1') && submit==true" />
+
+                                    <input formControlName="addressLine2"
+                                        [ngStyle]="{'margin-top':'4px'}" type="text" pInputText placeholder="rue 2" [class.invalid-input]="!monFormulaire.get('deliveryAddress.addressLine2').valid && monFormulaire.get('deliveryAddress.addressLine2') && submit==true" />
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Ville</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="city" pInputText
+                                        placeholder="Ville" [class.invalid-input]="!monFormulaire.get('deliveryAddress.city').valid && monFormulaire.get('deliveryAddress.city') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>État</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="state" pInputText
+                                        placeholder="État" [class.invalid-input]="!monFormulaire.get('deliveryAddress.state').valid && monFormulaire.get('deliveryAddress.state') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Code postal</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="postalCode" pInputText
+                                        placeholder="Code postal" [class.invalid-input]="!monFormulaire.get('deliveryAddress.postalCode').valid && monFormulaire.get('deliveryAddress.postalCode') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Téléphone</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="phoneNumber" pInputText
+                                        placeholder="Téléphone" [class.invalid-input]="!monFormulaire.get('deliveryAddress.phoneNumber').valid && monFormulaire.get('deliveryAddress.phoneNumber') && submit==true"/>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p>Numéro de télécopie</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" formControlName="fax" pInputText
+                                        placeholder="Numéro de télécopie" [class.invalid-input]="!monFormulaire.get('deliveryAddress.fax').valid && monFormulaire.get('deliveryAddress.fax') && submit==true"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </p-tabPanel>
+
+                <p-tabPanel header="Personnes à contacter">
+                    <div class="card table-responsive" formArrayName="clientContacts">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Titre</th>
+                                <th>Prénom</th>
+                                <th>Nom de famille</th>
+                                <th>Adresse e-mail</th>
+                                <th>Téléphone professionnel </th>
+                                <th> Téléphone portable</th>
+                                <th> Désignation</th>
+                                <th> Département</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let contact of clientContacts?.controls; let i = index" [formGroupName]="i">
+                                <td>
+                                  <p-dropdown formControlName="title" [options]="Titres" optionLabel="label" optionValue="id" [showClear]="true"
+                                    placeholder="Titre" [style]="{ 'width':'100%' }"
+                                    [class.invalid-input]="!contact.get('title').valid && contact.get('title') && submit==true">
+                                  </p-dropdown>
+                                </td>
+                                <td>
+                                  <input type="text" formControlName="firstName" pInputText
+                                    [class.invalid-input]="!contact.get('firstName').valid && contact.get('firstName') && submit==true" />
+                                </td>
+                          
+                                <td>
+                                  <input type="text" formControlName="lastName" pInputText
+                                    [class.invalid-input]="!contact.get('lastName').valid && contact.get('lastName') && submit==true" />
+                                </td>
+                          
+                                <td>
+                                  <input type="text" formControlName="email" pInputText
+                                    [class.invalid-input]="!contact.get('email').valid && contact.get('email') && submit==true" />
+                                </td>
+                                <td>
+                                  <input type="text" formControlName="phoneNumberPro" pInputText
+                                    [class.invalid-input]="!contact.get('phoneNumberPro').valid && contact.get('phoneNumberPro') && submit==true" />
+                          
+                                </td>
+                                <td>
+                                  <input type="text" formControlName="phoneNumberPortable" pInputText
+                                    [class.invalid-input]="!contact.get('phoneNumberPortable').valid && contact.get('phoneNumberPortable') && submit==true" />
+                          
+                                </td>
+                                <td>
+                                  <input type="text" formControlName="designation" pInputText
+                                    [class.invalid-input]="!contact.get('designation').valid && contact.get('designation') && submit==true" />
+                                </td>
+                                <td>
+                                  <input type="text" formControlName="department" pInputText
+                                    [class.invalid-input]="!contact.get('department').valid && contact.get('department') && submit==true" />
+                                </td>
+                                <td>
+                                  <p-button [text]="true" (click)="removeRow(i)">
+                                    <i class="pi pi-times text-danger"></i>
+                                  </p-button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          
+
+                        <p-button label="+ Ajouter une personne à contacter" [text]="true"
+                            (click)="addRow()"></p-button>
+
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Remarques">
+                    <h6>Remarques</h6>
+                    <textarea formControlName="note" rows="5" [ngStyle]="{'width':'100%'}" pInputTextarea [class.invalid-input]="!monFormulaire.get('note').valid && monFormulaire.get('note') && submit==true"></textarea>
+                </p-tabPanel>
+
+            </p-tabView>
+
+        </div>
+
+
+        <p-panel [toggleable]="true" styleClass="mt-5" header="Documents">
+
+            <div class="col-lg-4 w-20rem d-flex flex-row align-items-start mt-3 ml-3">
+                <div class="d-flex flex-column align-items-start justify-content-start">
+                    <span class="mb-2">Joindre le(s) fichier(s) à Facture</span>
+                    <files-upload-input [associatedDocs]="associatedDocs"
+                        (onFilesSelected)="setAssociatedDocs($event)"></files-upload-input>
+                </div>
+            </div>
+
+        </p-panel>
+
+    </p-card>
+
+    <p-card>
+        <p-button [text]="true" [raised]="false" type="submit"><i
+                class="pi pi-plus-circle"></i>&nbsp;Enregistrer</p-button>
+    </p-card>
+
+</form>

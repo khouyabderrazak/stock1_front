@@ -1,0 +1,19 @@
+<li *ngIf="item.routerLink" class="my-3">
+    <a [routerLink]="item?.routerLink"
+        class="flex align-items-center cursor-pointer text-dark px-3 py-2 text-decoration-none"
+        [routerLinkActive]="'route-ctive'" [routerLinkActiveOptions]="{exact:true}">
+        <span [class]="item.icon"></span>
+        <span class="mx-2 text-color">{{ item.label }}</span>
+    </a>
+</li>
+<li *ngIf="item?.items">
+    <button class="px-3 py-2 w-100 border-0 text-start my-1" (click)="toggleSousList()"> 
+        <span [class]="item.icon"></span>
+        <span class="ml-2 text-color"> {{ item.label }}</span>
+    </button>
+    <ul [ngClass]="{'sous-list':!isSousListOpen}">
+        <ng-container *ngFor="let x of item.items">
+            <app-menu [item]="x"></app-menu>
+        </ng-container>
+    </ul>
+</li>

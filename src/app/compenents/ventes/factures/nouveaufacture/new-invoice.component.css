@@ -1,0 +1,39 @@
+:host ::ng-deep .height-width-global{
+  min-width:25rem;
+  height:2.5rem;
+}
+:host ::ng-deep .height-global{
+  height:2.5rem;
+:hover ::ng-deep .border-right-grey{
+
+}
+}
+:host ::ng-deep .p-card:not(.info-card) .p-card-body ,
+:host ::ng-deep .p-card:not(.info-card) .p-card-content
+{
+  padding:  0;
+}
+:host ::ng-deep .p-card{
+  border-radius:0;
+}
+
+:host ::ng-deep .soft-edge-btn{
+  border-radius:0.5rem;
+  height:2rem;
+}
+:host ::ng-deep .cancel{
+  background-color: white;
+  color:#888888;
+  border: 1px solid #888888;
+}
+:host ::ng-deep .cancel:hover{
+  background-color: white;
+  color: #757575;
+  border: 1px solid #757575;
+}
+.objet-textarea{
+  min-width: 25rem;
+}
+/*:host ::ng-deep .p-card{*/
+/*  border:1px #bbbbbb solid;*/
+/*}*/

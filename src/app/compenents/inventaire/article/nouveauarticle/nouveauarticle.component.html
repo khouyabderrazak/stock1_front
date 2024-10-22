@@ -1,0 +1,402 @@
+<div class="">
+    <div class="mb-3 py-3 bg-white rounded border">
+        <h6 *ngIf="!id" class="px-2">Nouveau Article</h6>
+        <h6 *ngIf="id" class="px-2">Modification de l'article</h6>
+    </div>
+    <div class="p-2 row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Type <i class="pi pi-question-circle title" [pTooltip]="typeTitle"></i></p>
+                </div>
+                <div class="col-md-8">
+                    <div class="d-flex flex-wrap gap-3">
+                        <div class="d-flex align-items-center">
+                            <p-radioButton value="1" [(ngModel)]="article.typeArticle"
+                                inputId="ingredient1"></p-radioButton>
+                            <label for="ingredient1" class="ml-2">&nbsp;Marchandises</label>
+                        </div>
+                        <div class="flex align-items-center">
+                            <p-radioButton name="pizza" value="2" [(ngModel)]="article.typeArticle"
+                                inputId="ingredient2"></p-radioButton>
+                            <label for="ingredient2" class="ml-2">&nbsp;Service</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- --- -->
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    <p class="text-danger">Nom*</p>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" pInputText [(ngModel)]="article.articleName" [style]="{'width':'100%'}" />
+                </div>
+            </div>
+            <!-- --- -->
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    <p class="">SKU <i class="pi pi-question-circle title" [pTooltip]="SkuTitle"></i></p>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" pInputText [(ngModel)]="article.sku" [style]="{'width':'100%'}" />
+                </div>
+            </div> <!-- --- -->
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    <p class=""> Unité <i class="pi pi-question-circle title" [pTooltip]="UniteTitle"></i></p>
+                </div>
+
+                <div class="col-md-8">
+                    <p-dropdown [options]="unites" [(ngModel)]="article.unitId" optionLabel="label" optionValue="id"
+                        [showClear]="true" placeholder="selectionner un Unité" [style]="{'width':'100%'}"></p-dropdown>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-3"></div>
+                <div class="col-sm-8">
+                    <p-checkbox [(ngModel)]="article.isReturnable" [binary]="true" inputId="binary"></p-checkbox>
+                    &nbsp;
+                    Article pouvant faire l'objet d'un retour <i class="pi pi-question-circle title"
+                        [pTooltip]="isReturnableTitle" style="color: dodgerblue;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="overflow: hidden !important;">
+            
+            <div *ngIf="!id" class="d-flex justify-content-center">
+                <app-upload-file (OnChooseFile)="chooseFile($event)"></app-upload-file>
+            </div>
+
+        </div>
+    </div>
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <p-panel header="Autres Informations" [toggleable]="true">
+        <div class="bg-white p-2 rounded mt-4">
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>Dimensions
+                                (Longueur X Largeur X Hauteur)</p>
+                        </div>
+                        <div class="col-md-8 ">
+                            <div class="input-group">
+                                <input type="number" class="form-control" [(ngModel)]="dimension.width"
+                                    placeholder="Long" [ngClass]="{'py-2':true}" step=".1" />
+
+                                <input type="number" step=".1" class="form-control" [(ngModel)]="dimension.length"
+                                    placeholder="Larg" />
+                                <input type="number" step=".1" class="form-control" [(ngModel)]="dimension.height"
+                                    placeholder="Haut" />
+                                <select name="" id="" class="input-group-text" [(ngModel)]="uniteMessure">
+                                    <option *ngFor="let item of messures" [value]="item.id">{{item.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Fabricant</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p-dropdown [options]="fabricants" [(ngModel)]="article.manufacturerId" optionLabel="name"
+                                [filter]="true" filterBy="name" [showClear]="true" optionValue="id"
+                                placeholder="sellectionner un fabricant" [style]="{'width':'100%','margin':'0px'}">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>UPC <i class="pi pi-question-circle title" [pTooltip]="UPCTitle"></i></p>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" pInputText [(ngModel)]="article.upc" [style]="{'width':'100%'}" />
+                        </div>
+                    </div>
+                    <div class="row  mt-3">
+                        <div class="col-md-4">
+                            <p>EAN <i class="pi pi-question-circle title" [pTooltip]="EanTitle"></i></p>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" pInputText [(ngModel)]="article.ean" [style]="{'width':'100%'}" />
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!--  -->
+                <div class="col-md-6">
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p class="pt-1">Poids</p>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="number" step=".1" class="form-control py-2" [(ngModel)]="article.weight">
+                                <select class="input-group-text" [(ngModel)]="poidsUnit">
+                                    <option *ngFor="let item of poindsMessures" [value]="item.id">{{item.label}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  mt-3">
+                        <div class="col-md-4">
+                            <p>Marque</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p-dropdown [options]="marques" [(ngModel)]="article.markId" optionLabel="familyName"
+                                [filter]="true" filterBy="familyName" [showClear]="true" optionValue="id"
+                                placeholder="sellectionner une marque" [style]="{'width':'100%','margin':'0px'}">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>MPN <i class="pi pi-question-circle title" [pTooltip]="MpnTitle"></i></p>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" pInputText [(ngModel)]="article.mpn" [style]="{'width':'100%'}" />
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>ISBN <i class="pi pi-question-circle title" [pTooltip]="IsbnTitle"></i> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" pInputText [(ngModel)]="article.isbn" [style]="{'width':'100%'}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <hr style="color: #888;" class="m-5">
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div>
+                        <p-checkbox (click)="VenteChecked()" [(ngModel)]="isVenteChecked" [binary]="true"
+                            inputId="binary"></p-checkbox>
+                        &nbsp;
+                        Informations sur les ventes
+                    </div>
+                    <!-- ------ -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p [ngStyle]="{'color':'red'}" *ngIf="isVenteChecked">Prix de vente*</p>
+                            <p *ngIf="!isVenteChecked">Prix de vente</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="number" [disabled]="!isVenteChecked" pInputText
+                                [(ngModel)]="sellInfo.pricePerUnit" [style]="{'width':'100%'}" />
+                        </div>
+                    </div>
+                    <!-- ------ -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p [ngStyle]="{'color':'red'}" *ngIf="isVenteChecked">Compte</p>
+                            <p *ngIf="!isVenteChecked">Compte</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p-dropdown [disabled]="!isVenteChecked" [options]="revenus"
+                                [(ngModel)]="sellInfo.accountId" optionLabel="label" [filter]="true" filterBy="label"
+                                [showClear]="true" optionValue="id" [style]="{'width':'100%','margin':'0px'}">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <!-- ------ -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>Description</p>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea rows="2" [disabled]="!isVenteChecked" cols="30" [disabled]="!isAchatChecked"
+                                pInputTextarea [(ngModel)]="sellInfo.description" [style]="{'width':'100%'}"></textarea>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>Taxe</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p-dropdown [disabled]="!isVenteChecked" [options]="taxes" [(ngModel)]="sellInfo.taskId"
+                                optionLabel="title" [filter]="true" filterBy="title" [showClear]="true" optionValue="id"
+                                placeholder="Selectionner un Tax" [style]="{'width':'100%','margin':'0px'}">
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-sm-6">
+                        <p-checkbox (click)="AchatChecked()" [(ngModel)]="isAchatChecked" [binary]="true"
+                            inputId="binary"></p-checkbox>
+                        &nbsp;
+                        Informations sur les achats
+                    </div>
+
+                    <!-- ------ -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p [ngStyle]="{'color':'red'}" *ngIf="isAchatChecked">Prix de vente*</p>
+                            <p *ngIf="!isAchatChecked">Prix de vente</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="number" [disabled]="!isAchatChecked" pInputText
+                                [(ngModel)]="importInfo.pricePerUnit" [style]="{'width':'100%'}" />
+                        </div>
+                    </div>
+                    <!-- ------ -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p [ngStyle]="{'color':'red'}" *ngIf="isAchatChecked">Compte*</p>
+                            <p *ngIf="!isAchatChecked">Compte</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p-dropdown [disabled]="!isAchatChecked" [options]="achatComptes"
+                                [(ngModel)]="importInfo.accountId" [filter]="true" filterBy="label"
+                                placeholder="Selectioner une Compte" [group]="true"
+                                [style]="{'width':'100%','margin':'0px'}">
+                                <ng-template let-group pTemplate="group">
+                                    <div class="flex align-items-center">
+                                        <span>{{ group.label }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <!-- ------ -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>Description</p>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea rows="2" cols="30" [disabled]="!isAchatChecked" pInputTextarea
+                                [(ngModel)]="importInfo.description" [style]="{'width':'100%'}"></textarea>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>Taxe</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p-dropdown [disabled]="!isAchatChecked" [options]="taxes" [(ngModel)]="importInfo.taskId"
+                                optionLabel="title" [filter]="true" filterBy="title" [showClear]="true" optionValue="id"
+                                placeholder="Selectionner un Tax" [style]="{'width':'100%','margin':'0px'}">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p>Fournisseur préféré</p>
+                        </div>
+                        <div class="col-md-8">
+                            <p-dropdown [disabled]="!isAchatChecked" [options]="suppliers"
+                                [(ngModel)]="importInfo.supplierId" optionLabel="displayName" [filter]="true"
+                                filterBy="displayName" [showClear]="true" optionValue="id"
+                                placeholder="selectionner un Fournisseur" [style]="{'width':'100%','margin':'0px'}">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <hr style="color: #888;" class="m-5">
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <div *ngIf="isVenteChecked && isAchatChecked">
+                <div>
+                    <p-checkbox [(ngModel)]="isStockSuivi" [binary]="true" inputId="binary"></p-checkbox>
+                    &nbsp;
+                    Suivre le stock pour cet article
+                </div>
+                <div *ngIf="isStockSuivi">
+                    <div class="row mt-3">
+                        <div class="col-md-2">
+                            <p [ngStyle]="{'color':'red'}">Compte de stock*</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p-dropdown [options]="suiviLeStockComptes" [(ngModel)]="articleStockInf.accountIdSuivi"
+                                [filter]="true" filterBy="label" placeholder="Selectioner un Compte" [group]="true"
+                                [style]="{'width':'100%','margin':'0px'}">
+                                <ng-template let-group pTemplate="group">
+                                    <div class="flex align-items-center">
+                                        <span>{{ group.label }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p>Stock d'ouverture <i class="pi pi-question-circle title"
+                                            [pTooltip]="StockOuvertureTitle"></i></p>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" pInputText [(ngModel)]="articleStockInf.stockOuverture"
+                                        [style]="{'width':'100%'}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p>Taux de stock douverture par unité <i class="pi pi-question-circle title"
+                                            [pTooltip]="TauxOuvertureTitle"></i></p>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" pInputText [(ngModel)]="articleStockInf.tauxOuverture"
+                                        [style]="{'width':'100%'}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-2">
+                            <p>Seuil de réapprovisionnement <i class="pi pi-question-circle title"
+                                    [pTooltip]="SeuilTitle"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" pInputText [(ngModel)]="articleStockInf.seuil"
+                                [style]="{'width':'100%'}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <div>
+                <p-toast></p-toast>
+            </div>
+        </div>
+
+    </p-panel>
+    <div class="mt-3 rounded bg-white py-2 px-2 border">
+        <p-button [text]="true" [raised]="false" (click)="submit()"><i
+                class="pi pi-check"></i>&nbsp;Enregistrer</p-button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <p-button [text]="true" [raised]="false" severity="secondary" (click)="annuler()"><i
+                class="pi-times pi"></i>&nbsp;Annuler</p-button>
+    </div>
+
+</div>

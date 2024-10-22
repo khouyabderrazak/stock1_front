@@ -1,0 +1,40 @@
+.title {
+    color: white; 
+    font-weight: bold;
+    color: white;
+    background-color: dodgerblue;
+    width: 343px;
+    padding: 0 20px;
+}
+
+.main_container {
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    align-items: center;
+    padding: 0 10px 0 0 ;
+    margin: 0;
+}
+
+
+.main_container_first {
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
+
+
+.topbar-btn{
+     background-color: transparent;
+     border: 1px solid transparent;
+     border-radius: 50%;
+     transition: ease 1s;
+}
+
+.topbar-btn:focus{
+    border: 1px solid dodgerblue;
+}
+
+.topbar-btn span{
+
+}

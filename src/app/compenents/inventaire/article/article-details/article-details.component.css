@@ -1,0 +1,11 @@
+.header{
+    /* background-color: #f2f4f3; */
+    color: black;
+    border-radius:4px;
+    font-weight: bold;
+}
+.data{
+    color:  rgb(7, 7, 7) !important;
+}
+
+

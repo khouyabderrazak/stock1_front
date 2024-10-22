@@ -1,0 +1,104 @@
+<div class="p-5">
+
+    <div class="card p-3">
+        <div class="d-flex  justify-content-between">
+            <div>
+                <p> {{ Invoice?.client.displayName}} </p>
+                <p>{{Invoice?.client?.deliveryAddress?.city}}</p>
+                <p>{{Invoice?.client?.deliveryAddress?.country}}</p>
+                <p>{{Invoice?.client?.phonePortable}}</p>
+                <p>{{Invoice?.client?.email}}</p>
+            </div>
+            <div>
+                <h1>FACTURE</h1>
+                <p class="text-end">{{ Invoice?.nInvoice}} </p>
+                <p class="text-end">Solde dû</p>
+                <p class="text-end">MAD4,{{ Invoice?.tabArticles?.total }}</p>
+            </div>
+
+        </div>
+        <div class="d-flex">
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Date de facture : </td>
+                            <td>{{ Invoice?.invoiceDate }}</td>
+                        </tr>
+                        <tr>
+                            <td>Conditions : </td>
+                            <td>{{ Invoice?.paymentCondition?.label }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date d'échéance : </td>
+                            <td>{{ Invoice?.dueDate }}</td>
+                        </tr>
+                        <tr>
+                            <td>N° de bon de commande : </td>
+                            <td>{{ Invoice?.nOrder }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mt-4">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Article</th>
+                        <th>Description</th>
+                        <th>Quantité</th>
+                        <th>Taux</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of Invoice?.tabArticles?.articlesInfo;let i=index;">
+                        
+                        <td>{{i}}</td>
+                        <td>{{item?.article?.name }}</td>
+                        <td>{{item?.note}}</td>
+                        <td>{{item?.quantite}}</td>
+                        <td>{{item?.taux}}</td>
+                        <td>{{item?.montant}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Sous-total</td>
+                        <td>{{ Invoice?.tabArticles?.sousTotal}}</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td>{{Invoice?.tabArticles?.total}}</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Solde dû</td>
+                        <td>{{Invoice?.tabArticles?.total}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div *ngIf="Invoice.generalConditions">
+                <p>Remarques</p>
+                <p>{{ Invoice.generalConditions}}</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

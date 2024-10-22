@@ -1,0 +1,40 @@
+<div>
+    <div class="d-flex justify-content-between bg-white p-2 rounded border mb-2">
+        <h6 class="px-1 mt-2">Clients</h6>
+        <p-button [text]="true" [raised]="false" [routerLink]="['/dashboard/ventes/clients/nouveau']"><i
+                class="pi pi-plus-circle"></i>&nbsp;Nouveau</p-button>
+    </div>
+    <p-card *ngIf="clients?.length>0" >
+         
+      <p-table [value]="clients" [(selection)]="selectedClients" dataKey="id" [paginator]="true" [rows]="5"
+      [selectionPageOnly]="false" [tableStyle]="{'min-width': '50rem'}" [rowHover]="true">
+
+      <ng-template pTemplate="header">
+          <tr class="bg-light">
+              <th style="width: 4rem">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <td>Nom</td>
+              <td>NOM DE L'ENTREPRISE</td>
+              <td>E-MAIL</td>
+              <td>TÉLÉPHONE PROFESSIONNEL</td>
+             
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-client>
+          <tr>
+              <td>
+                  <p-tableCheckbox [value]="client"></p-tableCheckbox>
+              </td>
+              <td (click)="onOneRowSelected(client.id)">{{client.displayName}}</td>
+              <td (click)="onOneRowSelected(client.id)">{{client.companyName}}</td>
+              <td (click)="onOneRowSelected(client.id)">{{client.email}}</td>
+              <td (click)="onOneRowSelected(client.id)">{{client.phonePro}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+    </p-card>
+
+    <app-loading-indicator [items]="clients" ></app-loading-indicator>
+
+</div>

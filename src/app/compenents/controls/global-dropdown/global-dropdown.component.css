@@ -1,0 +1,7 @@
+::ng-deep .p-overlaypanel .p-overlaypanel-content{
+  padding:0;
+}
+.search-input{
+  background:#f9fafb;
+  padding:1rem;
+}

@@ -1,0 +1,23 @@
+<div class="topbar">
+    <app-topbar></app-topbar>
+</div>
+
+ <div #menu_list class="menu shadow " [ngClass]="{'menu-not-open':!isOpen}">
+    <ul>
+       <ng-container *ngFor="let item of list">
+         <app-menu [item]="item"></app-menu>
+      </ng-container>
+   </ul>
+ </div>
+
+<!-- ===================================Main======================================== -->
+
+<div class="main" [ngClass]="{'main-menu-not-open':!isOpen}">
+  <router-outlet>
+  </router-outlet>
+</div>
+
+<app-loader *ngIf="showLoader"></app-loader>
+<div #men_profile class="profileMenu" [ngClass]="{'profileMenu-open':isprofileMenuOpen}">
+    <app-profile-menu></app-profile-menu>
+</div>

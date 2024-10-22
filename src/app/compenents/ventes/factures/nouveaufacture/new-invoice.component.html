@@ -1,0 +1,114 @@
+<p-toast></p-toast>
+
+
+<div class="p-4">
+  <ng-container *ngIf="messages.length > 0">
+    <div
+      class="alert alert-danger alert-dismissible fade show d-flex flex-row align-items-center justify-content-between"
+      role="alert">
+      <ul>
+        <li *ngFor="let msg of messages">{{msg}}</li>
+      </ul>
+      <a class="close cursor-pointer" data-dismiss="alert" aria-label="Close" (click)="emptyMessages()">
+        <i class="pi pi-times text-red-400" style="font-size: 1rem"></i>
+      </a>
+    </div>
+  </ng-container>
+
+  <form [formGroup]="InvoiceForm" (ngSubmit)="saveInvoice()" #localForm='ngForm'>
+    <p-panel [toggleable]="true" styleClass="mt-5" header="Informations sur client/vendeur">
+
+      <div class="row">
+        <div class="col-md-3">Nom du client* <span class="text-danger" *ngIf="isValid('clientId')" >(invalid)</span></div>
+        <div class="col-md-6">
+        <p-dropdown [options]="clients" formControlName="clientId" optionLabel="displayName" [filter]="true"
+          filterBy="name" [showClear]="true" optionValue="id" placeholder="sellectionner un client"
+          [style]="{'width':'100%','margin':'0px'}">
+        </p-dropdown>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mt-2">N° de facture * <span class="text-danger" *ngIf="isValid('nInvoice')">(invalid)</span></div>
+      <div class="col-md-6 mt-2"><input type="text" pInputText formControlName="nInvoice" [style]="{'width':'100%'}" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mt-2">Numéro de commande</div>
+      <div class="col-md-6 mt-2"><input type="text" pInputText formControlName="nOrder" [style]="{'width':'100%'}" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mt-2">Date de facture* <span class="text-danger" *ngIf="isValid('invoiceDate')">(invalid)</span></div>
+      <div class="col-md-6 mt-2"><input type="date" pInputText formControlName="invoiceDate" [style]="{'width':'100%'}" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mt-2">Conditions * <span class="text-danger" *ngIf="isValid('paymentConditionId')">(invalid)</span></div>
+      <div class="col-md-6 mt-2">
+        <p-dropdown [options]="conditions" formControlName="paymentConditionId" optionLabel="label" [filter]="true"
+        filterBy="name" [showClear]="true" optionValue="id" placeholder="sellectionner un condition"
+        [style]="{'width':'100%','margin':'0px'}">
+      </p-dropdown>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mt-2">Date d'échéance* <span class="text-danger" *ngIf="isValid('dueDate')">(invalid)</span></div>
+      <div class="col-md-6 mt-2"><input type="date" pInputText formControlName="dueDate" [style]="{'width':'100%'}" />
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-3 mt-2">Vendeur</div>
+      <div class="col-md-6 mt-2">
+        <p-dropdown [options]="sellers" formControlName="sellerId" optionLabel="fullName" [filter]="true"
+        filterBy="name" [showClear]="true" optionValue="id" placeholder="sellectionner un vendeur"
+        [style]="{'width':'100%','margin':'0px'}">
+      </p-dropdown>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mt-2">Objet</div>
+      <div class="col-md-6 mt-2">
+        <input type="text" pInputText formControlName="note" [style]="{'width':'100%'}" />
+      </div>
+    </div>
+    
+  </p-panel>
+    <app-articles (sendData)="sendData($event)"></app-articles>
+  
+    <p-panel [toggleable]="true" styleClass="mt-5" header="Informations liées à la facture">
+      <div class="row">
+        <div class="col-lg-8 d-flex flex-column flex-grow-1" style="border-right: 1px solid #cecece;">
+          <h6>Conditions Generales :</h6>
+          <textarea pInputTextarea rows="5" formControlName="generalConditions"></textarea>
+        </div>
+        <div class="col-lg-4 w-20rem d-flex flex-row align-items-start mt-3 ml-3">
+          <div class="d-flex flex-column align-items-start justify-content-start">
+            <span class="mb-2">Joindre le(s) fichier(s) à Facture</span>
+            <files-upload-input [associatedDocs]="associatedDocs"
+                 (onFilesSelected)="setAssociatedDocs($event)">
+            </files-upload-input>
+          </div>
+        </div>
+      </div>
+    </p-panel>
+
+    <p-card styleClass="w-100 position-sticky bottom-0 right-0 py-3 rounded mt-3">
+      <div class="d-flex flex-row  justify-content-between align-content-between">
+        <div class="row ">
+          <div class="col d-flex align-items-center ml-3">
+            <p-button styleClass="soft-edge-btn" label="Enregister" type="submit"></p-button>
+          </div>
+          <div class="col d-flex align-items-center">
+            <p-button styleClass="soft-edge-btn cancel" label="Annuler"></p-button>
+          </div>
+        </div>
+        <div class="d-flex flex-column align-items-center mr-3">
+          <h6>Montant total : </h6>
+          <span>Quantite totale :</span>
+        </div>
+      </div>
+    </p-card>
+  </form>
+</div>

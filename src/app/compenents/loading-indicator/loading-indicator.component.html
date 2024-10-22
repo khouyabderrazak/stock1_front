@@ -1,0 +1,15 @@
+
+
+<div *ngIf="items?.length==0">
+      <div *ngIf="!isTimeOut ;else alert"  class="loader"></div>
+      <ng-template #alert>
+            <div class="mx-auto" style="max-width: 400px;">
+                        <p-messages 
+                            [(value)]="messages" 
+                            [enableService]="false" 
+                            [closable]="false" />
+            </div>
+            </ng-template>
+</div>
+
+

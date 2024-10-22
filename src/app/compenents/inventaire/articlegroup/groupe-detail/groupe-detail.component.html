@@ -1,0 +1,90 @@
+<div>
+
+    <p-card>
+ 
+        <div class="d-flex justify-content-between bg-white">
+         
+            <div>
+
+                <h6 class="mt-2">{{group?.groupName??""}}</h6>
+                
+                <p> {{group?.articles?.length??""}} (articles)</p>
+            
+            </div>
+         
+          <div style="border: dashed 1px #e0e0e0;">
+            <div *ngIf="group?.imagePath && !isEdit;else noImage;">
+
+                <div class="bg-white" *ngIf="group.imagePath" class="bg-white p-2 rounded">
+
+                    <app-image [fileName]="group.imagePath" [width]="'250px'" [height]="'200px'"></app-image>
+
+                </div>
+
+                <div class="d-flex bg-white justify-content-between px-2 py-1">
+
+                    <p-toast />
+                    <p-confirmDialog />
+                    <p-button [text]="true" (click)="confirmImage($event)" severity="danger">
+                        <i class="pi pi-trash"></i>
+                    </p-button>
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    <p-button [text]="true" severity="help" (click)="updateImage()">
+                        <i class="pi pi-file-edit"></i>
+                    </p-button>
+                </div>
+            </div>
+            <ng-template #noImage>
+                <app-upload-file (OnChooseFile)="chooseFile($event)"></app-upload-file>
+            </ng-template>
+        </div>
+        
+    </div>
+    </p-card>
+
+    <br>
+
+    
+
+
+    <p-card>
+
+        <p-table [value]="articles" [(selection)]="selectedArticles" dataKey="id" [paginator]="true" [rows]="5"
+            [selectionPageOnly]="false" [tableStyle]="{'min-width': '50rem'}" [rowHover]="true">
+
+            <ng-template pTemplate="header">
+                <tr class="bg-light">
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <td class="w-25">Nom</td>
+                    <td class="w-25">Reference</td>
+                    <td class="w-25">Stock Disponible</td>
+                    <td class="w-25">Niveau de réapprovisionnement</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-article>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="article"></p-tableCheckbox>
+                    </td>
+                    <td (click)="onOneRowSelected(article.id)" *ngIf="article.imagePath"><app-image
+                            [fileName]="article.imagePath" [width]="'40px'" [height]="'40px'"></app-image>
+                        &nbsp;&nbsp;&nbsp; {{article.articleName}}</td>
+                    <td (click)="onOneRowSelected(article.id)" *ngIf="!article.imagePath"><img
+                            style="width:40px;height: 40px;border-radius:5px;" src="./assets/au-image.jpg" alt="">
+                        &nbsp;&nbsp;&nbsp; {{article.articleName}}</td>
+                    <td (click)="onOneRowSelected(article.id)">{{article.sku}}</td>
+                    <td (click)="onOneRowSelected(article.id)">
+                        {{article.articleStockInf!=undefined?article.articleStockInf.stockOuverture:''}}</td>
+                    <td (click)="onOneRowSelected(article.id)">
+                        {{article.articleStockInf!=undefined?article.articleStockInf.seuil:''}}</td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </p-card>
+</div>

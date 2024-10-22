@@ -1,0 +1,34 @@
+<div class="d-flex flex-row align-items-center justify-content-center">
+  <input type="file" id="fileDropRef" accept="image/*,.pdf,.doc,.docx,.txt" size="10000" style="display: none" #fileDropRef multiple hidden (change)="addFiles($event)">
+  <p-button (onClick)="fileDropRef.click()" label="Telecharger document" icon="pi pi-upload" styleClass="files-btn-input"></p-button>
+  <ng-container *ngIf="associatedDocs?.length > 0">
+    <p-overlayPanel #op>
+      <ng-container *ngFor="let file of associatedDocs;let i = index">
+        <div  class="m-1 w-25rem d-flex justify-content-between" >
+          <div class="d-flex cursor-pointer docs-list-upload" (click)="downloadFile(file)" pTooltip="Cliquez pour Telecharger">
+            <fa-icon
+              [icon]="faFile"
+              class="ml-1 mr-1"
+            ></fa-icon>
+            <div>
+              {{file.name ?? "File name empty"}}
+            </div>
+          </div>
+          <fa-icon
+            [icon]="faTrash"
+            (click)="deleteSelectedFileFile(i)"
+            class="p-1 delete-icon cursor-pointer"
+          >
+          </fa-icon>
+        </div>
+      </ng-container>
+    </p-overlayPanel>
+    <p-button
+      (click)="op.toggle($event)"
+      icon="pi pi-link"
+      styleClass="files-btn"
+      label="{{associatedDocs.length}}"
+      [rounded]="true"
+    ></p-button>
+  </ng-container>
+</div>

@@ -1,0 +1,24 @@
+:host ::ng-deep .files-btn{
+  background-color: #264580;
+  color: #fff;
+  border:none;
+}
+:host ::ng-deep .files-btn-input
+{
+  background-color: white;
+  color: #2d2929;
+  border:1px #2d2929 solid;
+  margin-right:0.5rem;
+}
+:host ::ng-deep .files-btn,
+:host ::ng-deep .files-btn-input
+{
+  border-radius: 1rem ;
+  padding: 0.7rem;
+}
+.docs-list-upload:hover{
+  color:#3B82F6;
+}
+.delete-icon:hover{
+  color: #f63131;
+}

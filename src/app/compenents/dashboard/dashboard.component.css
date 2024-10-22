@@ -1,0 +1,113 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.topbar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.menu{
+    background-color: white !important;
+    position: fixed;
+    width: 280px !important;
+    left: 0px !important;
+    top: 72px !important;
+    bottom: 0 !important;
+    overflow-y: auto !important;
+    transition: ease 1s;
+}
+
+.menu-not-open{
+    left: -280px !important;
+}
+
+.main-menu-not-open{
+    left: 0px !important;
+}
+
+
+.main{
+    position: fixed;
+    left: 280px;
+    top: 72px !important;
+    bottom: 0 !important;
+    right: 0px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 10px;
+    transition: ease 1s;
+}
+.profileMenu{
+    position: fixed;
+    top: 50px;
+    right:15px;
+    height: 0px;
+    overflow: hidden;
+}
+
+.profileMenu-open{
+    height: auto !important;
+}
+
+@media screen and (max-width:600px){
+     .main{
+         left: 0px !important;  
+         z-index: -1 !important;
+     }
+}
+
+/*Global Styles Start*/
+::ng-deep .p-dropdown-panel ul {
+  padding-left: 0 !important;
+  margin-bottom: 0 !important;
+}
+::ng-deep .p-autocomplete-panel ul {
+  padding-left: 0 !important;
+  margin-bottom: 0 !important;
+}
+::ng-deep .p-dropdown .p-dropdown-clear-icon{
+  color:red;
+}
+::ng-deep .tab-panel.p-panel .p-panel-content {
+  padding:0 !important;
+}
+::ng-deep .p-listbox-list {
+  padding: 0;
+  margin:0;
+}
+/*Global Styles End*/
+
+::ng-deep .p-dropdown-panel ul{
+    padding-left: 0 !important;
+}
+::ng-deep .p-dropdown{
+    min-width: 200px !important;
+}
+
+::ng-deep .p-button{
+    height: 40px !important;
+    border-radius:10px !important;
+}
+
+
+.profile{
+    max-width: 200px !important;
+   
+    position: fixed;
+    right: 20px;
+    top: 60px;
+    padding: 20px 10px;
+    z-index: 20 !important;
+    background-color: dodgerblue;
+    color: white;
+
+    box-shadow: 2px 2px 5px rgb(84, 82, 82);
+    
+}
+
+

@@ -1,0 +1,27 @@
+<p>
+    Vous avez sélectionné une numérotation de facture manuelle. Voulez-vous que nous le générions automatiquement ?
+</p>
+<div>
+    <div>
+        <input type="radio" name="v" value="automatique" [(ngModel)]="choix"> Continuer la génération automatique des
+        numéros de facture.
+    </div>
+    <div *ngIf=" choix==='automatique'" class="row">
+        <div class="col-md-6">
+            <p class="mt-2">Préfixe</p>
+            <input type="text" class="form-control" [(ngModel)]="prifixe">
+        </div>
+        <div class="col-md-6 mb-2">
+            <p class="mt-2">Numéro suivant</p>
+            <input type="text" class="form-control" [(ngModel)]="numeroSuivant">
+        </div>
+    </div>
+    <div class="mb-3">
+        <input type="radio" name="v" value="toutseul" [(ngModel)]="choix"> Je les ajouterai manuellement à chaque fois.
+    </div>
+    <div class="modal-footer justify-content-start">
+        <button class="btn btn-primary"  data-bs-dismiss="modal" (click)="enregistrer()">enregistrer</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+          
+    </div>
+</div>

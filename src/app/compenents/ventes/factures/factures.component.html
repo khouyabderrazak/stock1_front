@@ -1,0 +1,57 @@
+
+
+<div>
+
+
+
+    <p-toast></p-toast>
+    <div class="d-flex justify-content-between bg-white p-2 rounded border">
+        <h6 class="px-1 mt-2">Factures</h6>
+        <p-button [text]="true" [raised]="false" [routerLink]="['/dashboard/ventes/nouveaufacture']"><i
+                class="pi pi-plus-circle"></i>&nbsp;Nouveau</p-button>
+    </div>
+
+    <br>
+
+    <p-card *ngIf="factures?.length>0" >
+
+        <p-table [value]="factures" [(selection)]="selectedFactures" dataKey="id" [paginator]="true" [rows]="5"
+            [selectionPageOnly]="false" [tableStyle]="{'min-width': '50rem'}" [rowHover]="true">
+
+            <ng-template pTemplate="header">
+                <tr class="bg-light">
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <td>DATE</td>
+                    <td>N° DE FACTURE</td>
+                    <td>NUMÉRO DE COMMANDE</td>
+                    <td>NOM DU CLIENT</td>
+                    <td>STATUT</td>
+                    <td>DATE D'ÉCHÉANCE</td>
+                    <td>MONTANT</td>
+                    <td>SOLDE DÛ</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-facture>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="facture"></p-tableCheckbox>
+                    </td>
+                    <td (click)="onOneRowSelected(facture.id)">{{facture?.invoiceDate | date:'dd/MM/yyyy' }}</td>
+                    <td (click)="onOneRowSelected(facture.id)">{{facture?.nInvoice }}</td>
+                    <td (click)="onOneRowSelected(facture.id)">{{facture?.nOrder }}</td>
+                    <td (click)="onOneRowSelected(facture.id)">{{facture?.client?.displayName }}</td>
+                    <td (click)="onOneRowSelected(facture.id)">{{facture?.id }}</td>
+                    <td (click)="onOneRowSelected(facture.id)">{{facture?.dueDate | date:'dd/MM/yyyy'}}</td>
+                    <td (click)="onOneRowSelected(facture.id)">{{facture?.tabArticles?.total }}</td>
+                    <td (click)="onOneRowSelected(facture.id)">{{facture?.tabArticles?.total }}</td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </p-card>
+
+    <app-loading-indicator [items]="factures" ></app-loading-indicator>
+</div>

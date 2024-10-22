@@ -1,0 +1,89 @@
+
+<form [formGroup]="TabArticles" (ngSubmit)="submit()">  
+  <div class="card">
+   <div class="d-flex  justify-content-center bg-danger">
+       <p *ngIf="messageErreur"  class="p-1 text-white">{{messageErreur}}</p>
+   </div>  
+  <p-table [value]="TabArticles.get('articlesInfo')?.['controls']" [tableStyle]="{'min-width': '60rem',}">
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        Products
+        <!-- <p-button icon="pi pi-refresh" /> -->
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>DÉTAILS DE L'ARTICLE</th>
+        <th>QUANTITÉ</th>
+        <th>TAUX</th>
+        <th>TAXE</th>
+        <th>MONTANT</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product  let-rowIndex="rowIndex" formArrayName="articlesInfo">
+      <tr [formGroupName]="rowIndex" [ngClass]="{'submited,':true}">
+        <td>
+          <p-dropdown [class.invalid]="isValid(''+rowIndex,'articleId')" [options]="articles" formControlName="articleId" optionLabel="articleName" [filter]="true"
+            filterBy="articleName" [showClear]="true" optionValue="id" placeholder="sellectionner un article"
+            [style]="{'width':'100%','margin':'0px'}" appendTo="body" (onChange)="OnSelectArticle(''+rowIndex)" >
+          </p-dropdown>
+        </td>
+          <td>
+            <input [class.invalid]="isValid(''+rowIndex,'quantite')"  type="number" min="1" pInputText formControlName="quantite" [style]="{'width':'100%'}" (input)="calculTaxes(''+rowIndex)" />
+          </td>
+          <td>
+            <input [class.invalid]="isValid(''+rowIndex,'taux')" type="number" min="1"  pInputText formControlName="taux" [style]="{'width':'100%'}"  (input)="calculTaxes(''+rowIndex)" />
+          </td>
+          <td>
+            <p-dropdown [options]="taxes" formControlName="taxId" optionLabel="title" [filter]="true"
+              filterBy="title" [showClear]="true" optionValue="id" placeholder="sellectionner un tax "
+              [style]="{ 'width':'100%' }" appendTo="body" (onChange)="calculTaxes(''+rowIndex)" >
+            </p-dropdown>
+          </td>
+        <td>
+            {{ getMontant(''+rowIndex)}}
+        </td>
+        <td>
+          <button *ngIf="rowIndex!=0"  type="button" class="btn btn-sm btn-danger" (click)="delete(rowIndex)" ><i class="pi pi-trash" ></i></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+            
+             <div>
+              <div>
+                <button class="btn btn-primary text-white my-3" type="button" (click)="ajoute()"><i class="pi pi-plus"></i> ajouter</button>
+              </div>
+              <div class="row">
+                <div class="col-md-6">Sous-total</div>                
+                <div class="col-md-3"> {{ getSousTotal() }} </div>                
+               </div>
+               <div class="row">
+                <div class="col-md-3 mt-2">Frais d'expédition</div>
+                 <div class="col-md-3 mt-2">
+                   <input type="number" pInputText formControlName="fraisdexpedition" min="1"  [style]="{'width':'100%'}"/>
+                 </div>                
+                <div class="col-md-3 mt-2">{{TabArticles?.get('fraisdexpedition')?.value}}</div>                
+               </div>
+               <div class="row" *ngFor="let item of allTax" >
+                <div class="col-md-6 mt-2">{{item[0]}}</div>                
+                <div class="col-md-3 mt-2">{{ item[1] }}</div>                
+               </div>
+
+               <div class="row">
+                   <div class="col-md-6 mt-2">Total ( MAD )</div>
+                   <div class="col-md-3 mt-2">{{ total }}</div>   
+               </div>
+
+             </div>
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<div>
+  <button #submitBtn class="btn btn-info" [hidden]="true" type="submit">submit</button>
+</div>
+
+</form>

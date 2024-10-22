@@ -1,0 +1,139 @@
+<div style="position: relative;">
+    <p-toast></p-toast>
+
+
+    <!-- <p-card [style]="{'width':'100%','margin':'10px 0','padding':'0px'}"> -->
+        <div class="d-flex justify-content-between p-2 bg-white border rounded">
+            <h6 class="mt-2">{{article.articleName}}</h6>
+            <div class="rounded">
+
+                <p-toast></p-toast>
+
+                <p-confirmDialog></p-confirmDialog>
+
+                <p-button [text]="true" [raised]="false" (click)="confirm2($event)" severity="danger">
+                    <i class="pi pi-trash"></i>
+                </p-button>
+
+                &nbsp;&nbsp;&nbsp;
+
+                <p-button [text]="true" [raised]="false" severity="help" (click)="update()">
+                    <i class="pi pi-file-edit"></i>
+                </p-button>&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    <!-- </p-card> -->
+
+    <br>
+    <p-card>
+        <div class="d-flex justify-content-between bg-white">
+            <div class="bg-white rounded px-2 py-1 ">
+                <p>Sku &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; <span class="data">{{article.sku}}</span></p>
+                <p>Type&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; <span
+                        class="data">{{article.typeArticle==1?'Marchandises':'Service'}}</span>
+                </p>
+                <p *ngIf="article.unit">Unite :&nbsp;&nbsp;&nbsp; <span *ngIf="article.unit"
+                        class="data">{{article.unit.label}}</span></p>
+            </div>
+
+            <div class="p-1" style="border: dashed 1px #e0e0e0;">
+                <div *ngIf="article.imagePath && !isEdit;else noImage;">
+
+                    <div class="bg-white" *ngIf="article.imagePath" class="bg-white p-2 rounded">
+
+                        <app-image [fileName]="article.imagePath" [width]="'250px'" [height]="'200px'"></app-image>
+
+                    </div>
+
+                    <div class="d-flex bg-white justify-content-between px-2 py-1">
+
+                        <p-button [text]="true" (click)="confirmImage($event)" severity="danger">
+                            <i class="pi pi-trash"></i>
+                        </p-button>
+
+                        &nbsp;&nbsp;&nbsp;
+
+                        <p-button [text]="true" severity="help" (click)="updateImage()">
+                            <i class="pi pi-file-edit"></i>
+                        </p-button>
+                    </div>
+                </div>
+                <ng-template #noImage>
+                    <app-upload-file (OnChooseFile)="chooseFile($event)"></app-upload-file>
+                </ng-template>
+            </div>
+        </div>
+    </p-card>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-sm-6 mt-2" *ngIf="article.importInfo">
+        <p-card>
+            <p class="header">Informations sur les achats</p>
+            <div class="d-flex justify-content-between">
+                <p class="element">Prix de revient</p>
+                <p *ngIf="article.importInfo" class="data">{{article.importInfo.pricePerUnit}} MAD </p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <p class="element">Compte d'achat</p>
+                <p class="data">{{compteAchat}}</p>
+            </div>
+        </p-card>
+    </div>
+
+    <div class="col-sm-6 mt-2" *ngIf="article.sellInfo">
+        <p-card>
+            <p class="header">Informations sur les ventes</p>
+            <div class="d-flex justify-content-between">
+                <p class="element">Prix de vente</p>
+                <p *ngIf="article.sellInfo" class="data">{{article.sellInfo.pricePerUnit}} MAD</p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <p class="element">Compte de vente</p>
+                <p class="data">{{compteVente}}</p>
+            </div>
+        </p-card>
+    </div>
+</div>
+
+<div class=" row " *ngIf="article.articleStockInf">
+    <div class="col-sm-6 mt-2">
+        <p-card>
+            <p class="header">Informations sur le stock de l'article</p>
+            <div class="d-flex justify-content-between">
+                <p class="element">Stock d'ouverture</p>
+                <p *ngIf="article.sellInfo" class="data">{{article.articleStockInf.stockOuverture}}</p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <p class="element">Compte de stock</p>
+                <p class="data">{{compteStock}}</p>
+            </div>
+            <div *ngIf="article.articleStockInf">
+                <div class="d-flex justify-content-between">
+                    <p class="element">stock Disponible</p>
+                    <p class="data">{{article.articleStockInf.stockdisponible}}
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="element">Stock engagé</p>
+                    <p class="data">{{article.articleStockInf.stockEngagee}}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="element">Disponible à la vente</p>
+                    <p class="data">{{article.articleStockInf.stockdisponible-article.articleStockInf.stockEngagee }}
+                    </p>
+                </div>
+            </div>
+        </p-card>
+    </div>
+    <div class="col-sm-6 mt-2">
+        <div class="">
+            <div class="card flex justify-content-center" style="width: 307px;padding:20px;">
+                <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+            </div>
+        </div>
+    </div>
+</div>
